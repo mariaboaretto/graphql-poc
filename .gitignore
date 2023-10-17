@@ -3,3 +3,9 @@
 
 # Mock data
 /server/data.js
+
+# DBs
+/repositories/*.db
+
+# Test file
+/repositories/testdb.js

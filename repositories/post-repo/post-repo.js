@@ -82,7 +82,7 @@ export default class PostRepository {
     async editPost(id, title, content) {
         return new Promise((resolve, reject) => {
             try {
-                let updateQuery = `UPDATE users SET `
+                let updateQuery = `UPDATE posts SET `
 
                 if (title)
                     updateQuery += `title = "${title}"${content ? ", " : " "}`
@@ -92,14 +92,12 @@ export default class PostRepository {
 
                 updateQuery += `WHERE post_id = ${id}`
 
-                console.log(updateQuery)
-                resolve()
+                this.db.run(updateQuery, [], () => resolve("Post updated successfully."))
             } catch (error) {
                 reject(error)
             }
         })
     }
-
 
     // Removes a Post from the DB
     async removePost(id) {

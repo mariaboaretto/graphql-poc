@@ -35,12 +35,18 @@ export default class UserRepository {
 
     // Adds a new user to the database
     async createUser(f_name, l_name, email, username, pwrd) {
-        let hashedPassword = crypto.createHash("sha256", pwrd).digest("hex")
-
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
                 // Checking if a user with this username already exists in db
+                if (await this._usernameExists(username))
+                    return reject("Username already exists.")
+
                 // Check if email already exists in db
+                if (await this._emailExists(email))
+                    return reject("Email already exists.")
+
+                // Hashing password
+                let hashedPassword = crypto.createHash("sha256", pwrd).update(pwrd).digest("hex")
 
                 this.db.run(`INSERT INTO users(f_name, l_name, email, username, password) VALUES (?,?,?,?,?)`,
                     [f_name, l_name, email, username, hashedPassword])
@@ -74,9 +80,8 @@ export default class UserRepository {
         return new Promise((resolve, reject) => {
             try {
                 this.db.get(`SELECT * from users WHERE user_id = ?`, [id], (_, user) => {
-                    if (!user) {
+                    if (!user)
                         reject("User not found.")
-                    }
 
                     resolve(new User(user.user_id, user.f_name, user.l_name, user.email, user.username, user.password))
                 })
@@ -89,7 +94,45 @@ export default class UserRepository {
 
     // Edits user first and last name
     async editUser(id, f_name, l_name) {
+        return new Promise((resolve, reject) => {
+            try {
+                let updateQuery = `UPDATE users SET `
 
+                // If first name was passed, add first name to query string
+                if (f_name)
+                    updateQuery += `f_name = "${f_name}"${l_name ? ", " : " "}`
+
+                // If last name was passed, add it to query string
+                if (l_name)
+                    updateQuery += `l_name = "${l_name}" `
+
+                // Adding ID to query string
+                updateQuery += `WHERE user_id = ${id}`
+
+                this.db.run(updateQuery, [], () => {
+                    resolve("User updated successfully.")
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    // Updates user password
+    async editPassword(id, newPassword) {
+        return new Promise((resolve, reject) => {
+            try {
+                let newHashedPassword = crypto.createHash("sha256", newPassword).update(newPassword).digest("hex")
+                console.log(newPassword)
+                console.log(newHashedPassword)
+
+                this.db.run(`UPDATE users SET password = ? WHERE user_id = ?`, [newHashedPassword, id], () => {
+                    resolve("Password updated successfully.")
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
 
     }
 
@@ -104,4 +147,39 @@ export default class UserRepository {
             }
         })
     }
+
+    // Checks if username is already in use in the database.
+    async _usernameExists(username) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.db.get(`SELECT * FROM users WHERE username = ?`, [username], (_, user) => {
+                    if (user) {
+                        resolve(true)
+                    }
+
+                    resolve(false)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
+
+    // Checks if email is already in use in the database.
+    async _emailExists(email) {
+        return new Promise((resolve, reject) => {
+            try {
+                this.db.get(`SELECT * FROM users WHERE email = ?`, [email], (_, user) => {
+                    if (user) {
+                        resolve(true)
+                    }
+
+                    resolve(false)
+                })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
 }
+

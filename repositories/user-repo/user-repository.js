@@ -1,8 +1,6 @@
 // Imports
 import sqlite3 from "sqlite3";
 import User from "./user.js"
-import crypto from "crypto"
-
 export default class UserRepository {
     constructor() {
         this.db = new sqlite3.Database("./_data.db", (err) => {
@@ -45,11 +43,8 @@ export default class UserRepository {
                 if (await this._emailExists(email))
                     return reject("Email already exists.")
 
-                // Hashing password
-                let hashedPassword = crypto.createHash("sha256", pwrd).update(pwrd).digest("hex")
-
                 this.db.run(`INSERT INTO users(f_name, l_name, email, username, password) VALUES (?,?,?,?,?)`,
-                    [f_name, l_name, email, username, hashedPassword])
+                    [f_name, l_name, email, username, pwrd])
                 resolve("User created successfully.")
             } catch (error) {
                 reject(error)
@@ -81,7 +76,7 @@ export default class UserRepository {
             try {
                 this.db.get(`SELECT * from users WHERE user_id = ?`, [id], (_, user) => {
                     if (!user)
-                        reject("User not found.")
+                        return reject("User not found.")
 
                     resolve(new User(user.user_id, user.f_name, user.l_name, user.email, user.username, user.password))
                 })
@@ -122,11 +117,7 @@ export default class UserRepository {
     async editPassword(id, newPassword) {
         return new Promise((resolve, reject) => {
             try {
-                let newHashedPassword = crypto.createHash("sha256", newPassword).update(newPassword).digest("hex")
-                console.log(newPassword)
-                console.log(newHashedPassword)
-
-                this.db.run(`UPDATE users SET password = ? WHERE user_id = ?`, [newHashedPassword, id], () => {
+                this.db.run(`UPDATE users SET password = ? WHERE user_id = ?`, [newPassword, id], () => {
                     resolve("Password updated successfully.")
                 })
             } catch (error) {

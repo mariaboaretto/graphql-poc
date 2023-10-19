@@ -6,6 +6,8 @@
 
 # DBs
 /repositories/*.db
+/services/*.db
 
-# Test file
+# Test files
 /repositories/testdb.js
+/services/service-test.js

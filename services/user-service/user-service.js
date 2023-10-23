@@ -7,14 +7,7 @@ export default class UserService {
     }
 
     async init() {
-        return new Promise(async (resolve, reject) => {
-            try {
-                await this.userRepo.init()
-                resolve()
-            } catch (error) {
-                reject(error)
-            }
-        })
+        return await this.userRepo.init()
     }
 
     // Helper method to hash passwords

@@ -19,7 +19,6 @@ export const resolvers = {
         },
         // Get all posts
         async posts() {
-            console.log(await postService.getPosts())
             return await postService.getPosts()
         },
         // Get all comments
@@ -41,33 +40,45 @@ export const resolvers = {
     },
     Comment: {
         // Get post associated with comment
-        post(parent) {
-            return data.posts.find((post) => post.id == parent.post_id)
+        async post(parent) {
+            let posts = await postService.getPosts()
+
+            return posts.find((post) => post.id == parent.postId)
         },
         // Get comment's author
-        author(parent) {
-            return data.users.find((user) => user.id == parent.author_id)
+        async author(parent) {
+            let users = await userService.getUsers()
+
+            return users.find((user) => user.id == parent.authorId)
         }
     },
     Post: {
         // Get post's author
-        author(parent) {
-            return data.users.find((user) => user.id == parent.author_id)
+        async author(parent) {
+            let users = await userService.getUsers()
+
+            return users.find((user) => user.id == parent.authorId)
         },
         // Get post's comments
-        comments(parent) {
-            return data.comments.filter((comment) => comment.post_id == parent.id)
+        async comments(parent) {
+            let comments = await commentService.getComments()
+
+            return comments.filter((comment) => comment.postId == parent.id)
 
         }
     },
     User: {
         // Get posts made by user
-        posts(parent) {
-            return data.posts.filter((post) => post.author_id == parent.id)
+        async posts(parent) {
+            let posts = await postService.getPosts()
+
+            return posts.filter((post) => post.authorId == parent.id)
         },
         // Get comments made by user
-        comments(parent) {
-            return data.comments.filter((comment) => comment.author_id == parent.id)
+        async comments(parent) {
+            let comments = await commentService.getComments()
+
+            return comments.filter((comment) => comment.authorId == parent.id)
         }
     },
     // Mutations
@@ -117,7 +128,7 @@ export const resolvers = {
         // Create new Post
         async createPost(_, args) {
             return await postService.createPost(args.post.title,
-                args.post.content, args.post.authorID, args.post.publishDate)
+                args.post.content, args.post.authorID, args.post.postedOn)
         },
 
         // Edit a Post

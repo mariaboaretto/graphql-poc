@@ -3,8 +3,6 @@ import UserService from "../../services/user-service/user-service.js"
 import PostService from "../../services/post-service/post-service.js"
 import CommentService from "../../services/comment-service/comment-service.js"
 
-let highestCommentId = 4
-
 const userService = new UserService()
 const postService = new PostService()
 const commentService = new CommentService()
@@ -21,11 +19,12 @@ export const resolvers = {
         },
         // Get all posts
         async posts() {
+            console.log(await postService.getPosts())
             return await postService.getPosts()
         },
         // Get all comments
         async comments() {
-            return commentService.getComments()
+            return await commentService.getComments()
         },
         // Get user by id
         async user(_, args) {
@@ -99,18 +98,22 @@ export const resolvers = {
         },
 
         // Add new comment
-        addComment(_, args) {
-            highestCommentId++
-
-            let comment = {
-                ...args.comment,
-                id: highestCommentId
-            }
-
-            data.comments.push(comment)
-
-            return comment
+        async addComment(_, args) {
+            return await commentService.addComment(args.comment.content,
+                args.comment.authorId, args.comment.postId, args.comment.publishDate)
         },
+
+        // Edit comment
+        async editComment(_, args) {
+            return await commentService.editComment(args.id, args.edits.content)
+        },
+
+        // Remove comment
+
+        async deleteComment(_, args) {
+            return await commentService.removeComment(args.id)
+        },
+
         // Create new Post
         async createPost(_, args) {
             return await postService.createPost(args.post.title,

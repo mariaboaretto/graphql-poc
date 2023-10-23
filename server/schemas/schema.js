@@ -23,8 +23,8 @@ export const typeDefs = `#graphql
     }
 
     type Comment {
-        id: ID!,
-        comment: String!,
+        commentId: ID!,
+        content: String!,
         post: Post!,
         author: User!,
         publishDate: String!
@@ -48,7 +48,9 @@ export const typeDefs = `#graphql
         editUserInfo(id: ID!, edits: EditUserInfoInput!): String,
         editUserPassword(id: ID!, edits: EditUserPasswordInput!): String,
         # Comment Mutations
-        addComment(comment: CommentInput!): Comment,
+        addComment(comment: CommentInput!): String,
+        editComment(id: ID!, edits: EditCommentInput!): String,
+        deleteComment(id: ID!): String!,
         # Post Mutations
         createPost(post: CreatePostInput!): String,
         editPost(id: ID!, edits: EditPostInput!): String,
@@ -74,10 +76,14 @@ export const typeDefs = `#graphql
     }
     # Comment Inputs
     input CommentInput {
-        comment: String!,
-        post_id: ID!,
-        author_id: ID!        
+        content: String!,
+        postId: ID!,
+        authorId: ID!,
+        publishDate: String!     
     },
+    input EditCommentInput {
+        content: String!
+    }
     # Post Inputs
     input CreatePostInput {
         title: String!,

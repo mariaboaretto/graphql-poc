@@ -1,35 +1,43 @@
-// Data
-import data from "../data.js"
+// Imports
+import UserService from "../../services/user-service/user-service.js"
+import PostService from "../../services/post-service/post-service.js"
+import CommentService from "../../services/comment-service/comment-service.js"
 
-let highestUserId = 5
 let highestCommentId = 4
-let highestPostId = 3
+
+const userService = new UserService()
+const postService = new PostService()
+const commentService = new CommentService()
+
+userService.init()
+postService.init()
+commentService.init()
 
 export const resolvers = {
     Query: {
         // Get all users
-        users() {
-            return data.users
+        async users() {
+            return await userService.getUsers()
         },
         // Get all posts
-        posts() {
-            return data.posts
+        async posts() {
+            return await postService.getPosts()
         },
         // Get all comments
-        comments() {
-            return data.comments
+        async comments() {
+            return commentService.getComments()
         },
         // Get user by id
-        user(_, args) {
-            return data.users.find((user) => user.id == args.id)
+        async user(_, args) {
+            return await userService.getUserById(args.id)
         },
         // Get post by id
-        post(_, args) {
-            return data.posts.find((post) => post.id == args.id)
+        async post(_, args) {
+            return await postService.getPostById(args.id)
         },
         // Get comment by id
-        comment(_, args) {
-            return data.comments.find((comment) => comment.id == args.id)
+        async comment(_, args) {
+            return await commentService.getCommentById(args.id)
         }
     },
     Comment: {
@@ -66,22 +74,16 @@ export const resolvers = {
     // Mutations
     Mutation: {
         // Delete user by id
-        deleteUser(_, args) {
-            data.users = data.users.filter((user) => user.id != args.id)
-            return "User deleted successfully"
+        async deleteUser(_, args) {
+            return await userService.removeUser(args.id)
         },
         // Create user
-        createUser(_, args) {
-            highestUserId++
-
+        async createUser(_, args) {
             let user = {
-                ...args.user,
-                id: highestUserId
+                ...args.user
             }
 
-            data.users.push(user)
-
-            return user
+            return await userService.createUser(user.firstName, user.lastName, user.email, user.username, user.password)
         },
         // Add new comment
         addComment(_, args) {

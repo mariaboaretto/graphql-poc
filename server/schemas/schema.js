@@ -42,13 +42,18 @@ export const typeDefs = `#graphql
 
     # Mutations
     type Mutation {
+        # User Mutations
         deleteUser(id: ID!): String,
         createUser(user: CreateUserInput!): String,
+        editUserInfo(id: ID!, edits: EditUserInfoInput!): String,
+        editUserPassword(id: ID!, edits: EditUserPasswordInput!): String,
+        # Comment Mutations
         addComment(comment: CommentInput!): Comment,
+        # Post Mutations
         editPost(id: ID!, edits: EditPostInput): Post
     }
 
-    # Inputs
+    # User Inputs
     input CreateUserInput {
         firstName: String!,
         lastName: String!,
@@ -56,11 +61,22 @@ export const typeDefs = `#graphql
         email: String!
         password: String!
     },
+    input EditUserInfoInput {
+        firstName: String!,
+        lastName: String!
+    },
+    input EditUserPasswordInput {
+        currentPwrd: String!,
+        newPwrd: String!,
+        newPwrdConfirmation: String!
+    }
+    # Comment Inputs
     input CommentInput {
         comment: String!,
         post_id: ID!,
         author_id: ID!        
     },
+    # Post Inputs
     input EditPostInput {
         title: String,
         content: String,

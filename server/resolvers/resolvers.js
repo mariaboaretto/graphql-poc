@@ -77,6 +77,7 @@ export const resolvers = {
         async deleteUser(_, args) {
             return await userService.removeUser(args.id)
         },
+
         // Create user
         async createUser(_, args) {
             let user = {
@@ -85,6 +86,18 @@ export const resolvers = {
 
             return await userService.createUser(user.firstName, user.lastName, user.email, user.username, user.password)
         },
+
+        // Edit user's info (first and last names)
+        async editUserInfo(_, args) {
+            return await userService.editUserInfo(args.id, args.edits.firstName, args.edits.lastName)
+        },
+
+        // Edit user's password
+        async editUserPassword(_, args) {
+            return await userService.editPassword(args.id, args.edits.newPwrd,
+                args.edits.newPwrdConfirmation, args.edits.currentPwrd)
+        },
+
         // Add new comment
         addComment(_, args) {
             highestCommentId++

@@ -111,16 +111,20 @@ export const resolvers = {
 
             return comment
         },
+        // Create new Post
+        async createPost(_, args) {
+            return await postService.createPost(args.post.title,
+                args.post.content, args.post.authorID, args.post.publishDate)
+        },
+
         // Edit a Post
-        editPost(_, args) {
-            let idx = data.posts.findIndex(post => post.id == args.id)
+        async editPost(_, args) {
+            return await postService.editPost(args.id, args.edits.title, args.edits.content)
+        },
 
-            data.posts[idx] = {
-                ...data.posts[idx],
-                ...args.edits
-            }
-
-            return data.posts[idx]
+        // Delete a post
+        async deletePost(_, args) {
+            return await postService.removePost(args.id)
         }
     }
 }

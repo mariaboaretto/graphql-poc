@@ -4,7 +4,11 @@ export const typeDefs = `#graphql
     # Entities
     type User {
         id: ID!,
+        f_name: String!,
+        l_name: String!,
         username: String!,
+        email: String!,
+        password: String!,
         comments: [Comment!],
         posts: [Post!]
     }
@@ -14,6 +18,7 @@ export const typeDefs = `#graphql
         title: String!,
         content: String!,
         author: User!,
+        publishDate: String!,
         comments: [Comment!]
     }
 
@@ -21,7 +26,8 @@ export const typeDefs = `#graphql
         id: ID!,
         comment: String!,
         post: Post!,
-        author: User!
+        author: User!,
+        publishDate: String!
     }
 
     # Endpoints
@@ -37,14 +43,18 @@ export const typeDefs = `#graphql
     # Mutations
     type Mutation {
         deleteUser(id: ID!): String,
-        createUser(user: CreateUserInput!): User,
+        createUser(user: CreateUserInput!): String,
         addComment(comment: CommentInput!): Comment,
         editPost(id: ID!, edits: EditPostInput): Post
     }
 
     # Inputs
     input CreateUserInput {
-        username: String!
+        firstName: String!,
+        lastName: String!,
+        username: String!,
+        email: String!
+        password: String!
     },
     input CommentInput {
         comment: String!,

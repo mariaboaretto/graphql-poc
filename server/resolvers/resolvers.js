@@ -7,9 +7,9 @@ const userService = new UserService()
 const postService = new PostService()
 const commentService = new CommentService()
 
-userService.init()
-postService.init()
-commentService.init()
+await userService.init()
+await postService.init()
+await commentService.init()
 
 export const resolvers = {
     Query: {

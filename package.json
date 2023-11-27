@@ -10,9 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/client": "^3.8.4",
+    "@picocss/pico": "^1.5.10",
     "apollo-server": "^3.12.1",
     "graphql": "^16.8.1",
     "nodemon": "^3.0.1",
+    "react-router-dom": "^6.20.0",
     "sqlite": "^5.0.1",
     "sqlite3": "^5.1.6"
   },

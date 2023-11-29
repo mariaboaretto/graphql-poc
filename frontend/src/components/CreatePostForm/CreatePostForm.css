@@ -1,0 +1,29 @@
+#title {
+    border: 0;
+    font-size: 32px;
+    box-shadow: none;
+}
+
+#content {
+    border: 0;
+    font-size: 21px;
+    box-shadow: none;
+}
+
+#publish-btn {
+    width: 10%;
+    font-size: 17px;
+    border-radius: 50px;
+    background-color: #7a9c93;
+    position: relative;
+    left: 80%;
+}
+
+#publish-btn:hover {
+    background-color: #03a87c;
+    transition: 0.5s;
+}
+
+#authors {
+    width: 20%;
+}

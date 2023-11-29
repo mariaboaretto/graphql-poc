@@ -1,3 +1,7 @@
+import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
+
 export default function CreatePostPage() {
-    return <h1>Write Post</h1>
+    return <div className="container">
+        <CreatePostForm />
+    </div>
 }

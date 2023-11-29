@@ -88,8 +88,7 @@ export const typeDefs = `#graphql
     input CreatePostInput {
         title: String!,
         content: String!,
-        authorID: ID!,
-        postedOn: String!
+        authorID: ID!
     },
     input EditPostInput {
         title: String,

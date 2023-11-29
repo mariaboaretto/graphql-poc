@@ -18,7 +18,7 @@ export default class PostService {
         return await this.postRepo.getPostById(id)
     }
 
-    async createPost(title, content, authorId, publishDate) {
+    async createPost(title, content, authorId) {
         return new Promise(async (resolve, reject) => {
             if (!title)
                 return reject("Please enter a title.")
@@ -30,8 +30,7 @@ export default class PostService {
             if (!authorId)
                 return reject("Please enter the author's ID.")
 
-            if (!publishDate)
-                return reject("Please enter the publish date.")
+            let publishDate = new Date().toISOString()
 
             try {
                 await this.postRepo.addPost(title, content, authorId, publishDate)

@@ -128,7 +128,7 @@ export const resolvers = {
         // Create new Post
         async createPost(_, args) {
             return await postService.createPost(args.post.title,
-                args.post.content, args.post.authorID, args.post.postedOn)
+                args.post.content, args.post.authorID)
         },
 
         // Edit a Post

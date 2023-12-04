@@ -2,11 +2,12 @@ import '@picocss/pico'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Header from './components/Header/Header';
-import CreateUserPage from './pages/CreateUserPage/CreateUser.js/CreateUser';
+import CreateUserPage from './pages/CreateUserPage/CreateUser';
 import CreatePostPage from './pages/CreatePostPage/CreatePost';
 import AllUsers from './pages/AllUsersPage/AllUsers';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client'
 import { onError } from "@apollo/client/link/error"
+import EditUserPage from './pages/EditUserPage/EditUserPage';
 
 const errorLink = onError(({ graphqlError, networkError }) => {
   if (graphqlError)
@@ -33,6 +34,7 @@ function App() {
           <Route path='/create-user' element={<CreateUserPage />} />
           <Route path='/new-post' element={<CreatePostPage />} />
           <Route path='/users' element={<AllUsers />} />
+          <Route path='/edit-user/:id' element={<EditUserPage />} />
         </Routes>
       </Router>
     </ApolloProvider>

@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useMutation } from "@apollo/client"
 import { CREATE_USER_MUTATION } from "../GraphQL/Mutations.js"
 
-export default function CreateUserForm() {
+export default function UserDetailsForm() {
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
     const [username, setUsername] = useState()

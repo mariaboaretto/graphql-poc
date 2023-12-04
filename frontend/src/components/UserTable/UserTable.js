@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client"
 import { GET_USERS } from "../GraphQL/Queries.js"
 import { useEffect, useState } from "react"
+import "./UserTable.css"
+import UserActionBtns from "../UserActionBtns/UserActionBtns.js"
 
 export default function UserTable() {
     const { error, loading, data } = useQuery(GET_USERS)
@@ -12,6 +14,9 @@ export default function UserTable() {
             <td>{user.f_name + " " + user.l_name}</td>
             <td>{user.username}</td>
             <td>{user.email}</td>
+            <td>
+                <UserActionBtns user={user} />
+            </td>
         </tr>
     }
 
@@ -31,6 +36,7 @@ export default function UserTable() {
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

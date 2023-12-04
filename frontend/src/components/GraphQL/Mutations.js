@@ -5,6 +5,12 @@ export const CREATE_USER_MUTATION = gql`
   createUser(user: $user)
 }`
 
+export const DELETE_USER_MUTATION = gql`
+  mutation DeleteUser($deleteUserId: ID!) {
+  deleteUser(id: $deleteUserId)
+  }
+`
+
 export const CREATE_POST_MUTATION = gql`
   mutation CreatePost($post: CreatePostInput!) {
     createPost(post: $post)

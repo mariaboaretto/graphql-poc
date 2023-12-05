@@ -1,0 +1,40 @@
+.post-card {
+    border-bottom: 1px solid #D3D3D3;
+}
+
+#post-card-top-section {
+    font-size: 17px;
+}
+
+.content-preview {
+    margin-bottom: 30px;
+}
+
+#post-date {
+    color: #6B6B6B;
+}
+
+#author-name {
+    color: #000;
+}
+
+#card-title {
+    font-weight: bold;
+    font-size: 23px;
+    color: #000;
+}
+
+.content-preview {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.post-page-link {
+    text-decoration: none;
+}
+
+#post-settings-icon {
+    margin-left: 7px;
+    cursor: pointer;
+}

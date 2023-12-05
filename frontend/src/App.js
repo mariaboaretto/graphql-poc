@@ -8,6 +8,7 @@ import AllUsers from './pages/AllUsersPage/AllUsers';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client'
 import { onError } from "@apollo/client/link/error"
 import EditUserPage from './pages/EditUserPage/EditUserPage';
+import PostPage from './pages/PostPage/PostPage';
 
 const errorLink = onError(({ graphqlError, networkError }) => {
   if (graphqlError)
@@ -35,6 +36,7 @@ function App() {
           <Route path='/new-post' element={<CreatePostPage />} />
           <Route path='/users' element={<AllUsers />} />
           <Route path='/edit-user/:id' element={<EditUserPage />} />
+          <Route path='/post/:id' element={<PostPage />} />
         </Routes>
       </Router>
     </ApolloProvider>

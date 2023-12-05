@@ -1,12 +1,22 @@
-import { useQuery } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { GET_USERS } from "../GraphQL/Queries.js"
 import { useEffect, useState } from "react"
 import "./UserTable.css"
 import UserActionBtns from "../UserActionBtns/UserActionBtns.js"
+import { DELETE_USER_MUTATION } from "../GraphQL/Mutations.js"
 
 export default function UserTable() {
     const { error, loading, data } = useQuery(GET_USERS)
+    const [deleteUser, { err }] = useMutation(DELETE_USER_MUTATION)
     const [users, setUsers] = useState([])
+
+    function delUser(userId) {
+        deleteUser({
+            variables: {
+                deleteUserId: userId
+            }
+        })
+    }
 
     function renderTableRow(user) {
         return <tr key={user.id}>
@@ -15,7 +25,7 @@ export default function UserTable() {
             <td>{user.username}</td>
             <td>{user.email}</td>
             <td>
-                <UserActionBtns user={user} />
+                <UserActionBtns userId={user.id} handleClick={delUser} />
             </td>
         </tr>
     }

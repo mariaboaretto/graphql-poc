@@ -1,6 +1,10 @@
 import { useState } from "react"
 
 export default function DelUserModal(props) {
+    function handleClick() {
+        props.handleClick(props.userId)
+        props.handleClose(false)
+    }
     return <dialog id="del-user-modal" open>
         <article>
             <a href="#close"
@@ -19,8 +23,9 @@ export default function DelUserModal(props) {
                     onClick={() => props.handleClose(false)}>
                     Cancel
                 </a>
-                <a href="#confirm"
-                    role="button">
+                <a href="/users"
+                    role="button"
+                    onClick={handleClick}>
                     Confirm
                 </a>
             </footer>

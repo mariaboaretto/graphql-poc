@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import { DELETE_USER_MUTATION } from "../GraphQL/Mutations"
 import { useState } from "react"
-import DelUserModal from "../DelUserModal/DelUserModal"
+import DelModal from "../DelModal/DelModal"
 
 export default function UserActionBtns(props) {
     const [showModal, setShow] = useState(false)
@@ -14,6 +14,12 @@ export default function UserActionBtns(props) {
             Delete
         </a>
 
-        {showModal ? <DelUserModal userId={props.userId} handleClose={setShow} handleClick={props.handleClick} /> : null}
+        {showModal ? <DelModal
+            id={props.userId}
+            handleClose={setShow}
+            handleClick={props.handleClick}
+            title="Are you sure you want to delete this user?"
+            redirectLink="/users"/>
+            : null}
     </div>
 }

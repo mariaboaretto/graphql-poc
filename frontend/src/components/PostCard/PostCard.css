@@ -3,7 +3,23 @@
 }
 
 #post-card-top-section {
-    font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-section-info {
+    font-size: 18px;
+}
+
+.post-settings-icons {
+    font-size: 23px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.settings-i {
+    margin-right: 8px;
+    cursor: pointer;
 }
 
 .content-preview {
@@ -35,6 +51,16 @@
 }
 
 #post-settings-icon {
-    margin-left: 7px;
+    margin: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
     cursor: pointer;
+}
+
+#post-settings-icon:hover {
+    background-color: #E5E4E2;
+    transition: .5s;
 }

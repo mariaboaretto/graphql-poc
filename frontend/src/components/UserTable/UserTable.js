@@ -6,7 +6,7 @@ import UserActionBtns from "../UserActionBtns/UserActionBtns.js"
 import { DELETE_USER_MUTATION } from "../GraphQL/Mutations.js"
 
 export default function UserTable() {
-    const { error, loading, data } = useQuery(GET_USERS)
+    const { error, _, data } = useQuery(GET_USERS)
     const [deleteUser, { err }] = useMutation(DELETE_USER_MUTATION)
     const [users, setUsers] = useState([])
 
@@ -31,12 +31,13 @@ export default function UserTable() {
     }
 
     useEffect(() => {
-        if (data)
+        if (data) {
             setUsers(data.users)
+        }
     }, [data])
 
-    if (users.length == 0) {
-        return <em>No data to display...</em>
+    if (!users) {
+        return <article aria-busy="true"></article>
     }
 
     return <table>

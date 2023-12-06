@@ -16,3 +16,10 @@ export const CREATE_POST_MUTATION = gql`
     createPost(post: $post)
   }
 `
+
+// Deletes a post from DB
+export const DELETE_POST_MUTATION = gql`
+mutation DeletePost($deletePostId: ID!) {
+    deletePost(id: $deletePostId)
+  }  
+`

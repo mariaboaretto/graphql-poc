@@ -1,24 +1,27 @@
 import { Link } from "react-router-dom"
 import "./PostCard.css"
+import PostSettingsOptions from "../PostSettingsOptions/PostSettingsOptions"
 
 export default function PostCard(props) {
     return <section className="post-card">
-        <div>
-            <p id="post-card-top-section">
+        <div id="post-card-top-section">
+            <div className="top-section-info">
                 <span id="author-name">{props.author.f_name + " " + props.author.l_name} &#183; </span>
                 <span id="post-date">{props.publicationDate}</span>
-                <i id="post-settings-icon" className="fa-solid fa-ellipsis"></i>
-            </p>
+            </div>
+            <PostSettingsOptions id={props.id}/>
         </div>
 
-        <Link to={`/post/${props.id}`} className="post-page-link">
-            <div id="title">
-                <span id="card-title">{props.title}</span>
-            </div>
+        <div id="title">
+            <Link to={`/post/${props.id}`} id="card-title" className="post-page-link">
+                {props.title}
+            </Link>
+        </div>
 
-            <div className="content-preview">
+        <div className="content-preview">
+            <Link to={`/post/${props.id}`} className="post-page-link">
                 {props.content}
-            </div>
-        </Link>
+            </Link>
+        </div>
     </section>
 }

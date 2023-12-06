@@ -1,8 +1,8 @@
 import { useState } from "react"
 
-export default function DelUserModal(props) {
+export default function DelModal(props) {
     function handleClick() {
-        props.handleClick(props.userId)
+        props.handleClick(props.id)
         props.handleClose(false)
     }
     return <dialog id="del-user-modal" open>
@@ -12,7 +12,7 @@ export default function DelUserModal(props) {
                 className="close"
                 onClick={() => props.handleClose(false)}>
             </a>
-            <h3>Are you sure you want to delete this user?</h3>
+            <h3>{props.title}</h3>
             <p>
                 This action cannot be undone.
             </p>
@@ -23,7 +23,7 @@ export default function DelUserModal(props) {
                     onClick={() => props.handleClose(false)}>
                     Cancel
                 </a>
-                <a href="/users"
+                <a href={props.redirectLink}
                     role="button"
                     onClick={handleClick}>
                     Confirm

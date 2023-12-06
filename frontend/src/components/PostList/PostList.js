@@ -5,7 +5,7 @@ import PostCard from "../PostCard/PostCard"
 
 export default function PostList() {
     const [posts, setPosts] = useState()
-    const { postsError, loading, data } = useQuery(GET_POSTS)
+    const { postsError, _, data } = useQuery(GET_POSTS)
 
     // Renders a post card with post details
     function renderPosts(post) {
@@ -29,7 +29,7 @@ export default function PostList() {
     }, [data])
 
     if (!posts) {
-        return <p>No data to display...</p>
+        return <article aria-busy="true"></article>
     }
 
     return <div id="post-list">

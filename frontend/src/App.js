@@ -9,6 +9,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@ap
 import { onError } from "@apollo/client/link/error"
 import EditUserPage from './pages/EditUserPage/EditUserPage';
 import PostPage from './pages/PostPage/PostPage';
+import EditPostPage from './pages/EditPostPage/EditPostPage';
 
 const errorLink = onError(({ graphqlError, networkError }) => {
   if (graphqlError)
@@ -37,6 +38,7 @@ function App() {
           <Route path='/users' element={<AllUsers />} />
           <Route path='/edit-user/:id' element={<EditUserPage />} />
           <Route path='/post/:id' element={<PostPage />} />
+          <Route path='/edit-post/:id' element={<EditPostPage />} />
         </Routes>
       </Router>
     </ApolloProvider>

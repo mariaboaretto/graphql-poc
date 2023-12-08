@@ -2,6 +2,7 @@ import { useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { GET_POSTS } from "../GraphQL/Queries"
 import PostCard from "../PostCard/PostCard"
+import "./PostList.css"
 
 export default function PostList() {
     const [posts, setPosts] = useState()

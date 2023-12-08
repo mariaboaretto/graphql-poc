@@ -1,66 +1,35 @@
 .post-card {
-    border-bottom: 1px solid #D3D3D3;
+    margin: 10px;
+    padding: 0px;
+    width: 450px;
+    border-radius: 25px;
 }
 
-#post-card-top-section {
-    display: flex;
-    justify-content: space-between;
+#post-header {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    padding: 10px;
 }
 
-.top-section-info {
-    font-size: 18px;
+#post-image {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    max-height: 300px;
+    max-width: 450px;
 }
 
-.post-settings-icons {
-    font-size: 23px;
-    display: flex;
-    justify-content: space-around;
-}
-
-.settings-i {
-    margin-right: 8px;
-    cursor: pointer;
-}
-
-.content-preview {
-    margin-bottom: 30px;
-}
-
-#post-date {
-    color: #6B6B6B;
+#post-footer {
+    margin: 5px;
+    padding: 10px;
+    font-size: 17px;
 }
 
 #author-name {
-    color: #000;
+    color: black;
 }
 
-#card-title {
-    font-weight: bold;
-    font-size: 23px;
-    color: #000;
-}
-
-.content-preview {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.post-page-link {
+#post-card-link {
     text-decoration: none;
-}
-
-#post-settings-icon {
-    margin: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 50px;
-    cursor: pointer;
-}
-
-#post-settings-icon:hover {
-    background-color: #E5E4E2;
-    transition: .5s;
 }

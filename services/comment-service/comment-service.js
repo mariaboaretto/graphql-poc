@@ -17,7 +17,7 @@ export default class CommentService {
         return await this.commentRepo.getCommentById(id)
     }
 
-    async addComment(content, authorId, postId, publishDate) {
+    async addComment(content, authorId, postId) {
         return new Promise(async (resolve, reject) => {
             if (!content)
                 return reject("Please enter the comment's content.")
@@ -28,8 +28,7 @@ export default class CommentService {
             if (!postId)
                 return reject("Please enter the post ID.")
 
-            if (!publishDate)
-                return reject("Please enter the publication date.")
+            let publishDate = new Date().toISOString()
 
             try {
                 await this.commentRepo.addComment(content, authorId, postId, publishDate)

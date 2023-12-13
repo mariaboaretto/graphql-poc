@@ -27,7 +27,7 @@ export const typeDefs = `#graphql
         content: String!,
         post: Post!,
         author: User!,
-        publishDate: String!
+        postedOn: String!
     }
 
     # Endpoints
@@ -78,8 +78,7 @@ export const typeDefs = `#graphql
     input CommentInput {
         content: String!,
         postId: ID!,
-        authorId: ID!,
-        publishDate: String!     
+        authorId: ID!    
     },
     input EditCommentInput {
         content: String!

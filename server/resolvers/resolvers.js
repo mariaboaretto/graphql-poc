@@ -111,7 +111,7 @@ export const resolvers = {
         // Add new comment
         async addComment(_, args) {
             return await commentService.addComment(args.comment.content,
-                args.comment.authorId, args.comment.postId, args.comment.publishDate)
+                args.comment.authorId, args.comment.postId)
         },
 
         // Edit comment

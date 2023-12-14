@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import CommentCard from "./CommentCard/CommentCard";
+import CommentCard from "../CommentCard/CommentCard";
 import { GET_COMMENTS_BY_POST } from "../GraphQL/Queries";
 import { useEffect, useState } from "react";
 

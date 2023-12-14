@@ -1,4 +1,4 @@
-import DeleteCommentBtn from "../../DeleteCommentBtn/DeleteCommentBtn"
+import DeleteCommentBtn from "../DeleteCommentBtn/DeleteCommentBtn"
 import "./CommentCard.css"
 
 export default function CommentCard(props) {

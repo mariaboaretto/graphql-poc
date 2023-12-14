@@ -1,0 +1,12 @@
+#comment-card {
+    border-bottom: 1px solid #d3d3d3;
+    margin: 15px;
+}
+
+#publish-date {
+    color: #6b6b6b;
+}
+
+#card-comment-content {
+    white-space: pre-line;
+}

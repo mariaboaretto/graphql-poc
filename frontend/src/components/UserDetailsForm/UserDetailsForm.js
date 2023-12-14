@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useMutation, useQuery } from "@apollo/client"
 import { CREATE_USER_MUTATION } from "../GraphQL/Mutations.js"
+import MsgModal from "../MsgModal/MsgModal.js"
 
 export default function UserDetailsForm(props) {
     const [firstName, setFirstName] = useState()
@@ -12,7 +13,9 @@ export default function UserDetailsForm(props) {
 
     const [err, setErr] = useState("")
 
-    const [createUser, { error }] = useMutation(CREATE_USER_MUTATION)
+    const [createUser, { createUserErr }] = useMutation(CREATE_USER_MUTATION)
+    const [modalContent, setContent] = useState()
+    const [showModal, setShowModal] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -36,6 +39,14 @@ export default function UserDetailsForm(props) {
                 }
             }
         })
+
+        if (createUserErr) {
+            setContent(createUserErr)
+        } else {
+            setContent("User created successfully!")
+        }
+
+        setShowModal(true)
     }
 
     return <form onSubmit={handleSubmit}>
@@ -46,7 +57,7 @@ export default function UserDetailsForm(props) {
                     type="text"
                     onChange={(e) => setFirstName(e.target.value)}
                     required
-                    value={props.user ? props.user.f_name : ""} />
+                    defaultValue={props.user ? props.user.f_name : ""} />
             </label>
 
             <label>Last Name<span className="required-field">*</span>
@@ -54,7 +65,7 @@ export default function UserDetailsForm(props) {
                     type="text"
                     onChange={(e) => setLastName(e.target.value)}
                     required
-                    value={props.user ? props.user.l_name : ""} />
+                    defaultValue={props.user ? props.user.l_name : ""} />
             </label>
         </div>
 
@@ -66,7 +77,7 @@ export default function UserDetailsForm(props) {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={props.user ? true : false}
-                    value={props.user ? props.user.email : ""} />
+                    defaultValue={props.user ? props.user.email : ""} />
             </label>
 
             <label>Username<span className="required-field">*</span>
@@ -75,7 +86,7 @@ export default function UserDetailsForm(props) {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     disabled={props.user ? true : false}
-                    value={props.user ? props.user.username : ""} />
+                    defaultValue={props.user ? props.user.username : ""} />
             </label>
         </div>
 
@@ -98,5 +109,7 @@ export default function UserDetailsForm(props) {
         </div>
 
         <button type="submit">{props.user ? "Update User" : "Create User"}</button>
+
+        {showModal ? <MsgModal title={createUserErr ? "Error" : "Success"} content={modalContent} redirectLink="/users" /> : null}
     </form>
 }

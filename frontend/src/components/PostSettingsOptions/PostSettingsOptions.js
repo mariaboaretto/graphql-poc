@@ -29,6 +29,7 @@ export default function PostSettingsOptions(props) {
             handleClick={removePost}
             id={props.id}
             redirectLink="/"
+            cancelRedirect="#"
         />
             : null}
     </div>

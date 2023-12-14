@@ -48,7 +48,7 @@ export default function CreatePostForm() {
     return <form onSubmit={handleSubmit}>
         <button id="publish-btn" type="submit">Publish</button>
 
-        <select id="authors" onChange={(e) => setAuthorID(e.target.value)}>
+        <select id="authors" onChange={(e) => setAuthorID(e.target.value)} required>
             <option value="" disabled selected>Author</option>
             {users.map(renderDropDownOptions)}
         </select>
@@ -59,6 +59,7 @@ export default function CreatePostForm() {
             required
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)} />
+
         <textarea
             id="content"
             type="text"

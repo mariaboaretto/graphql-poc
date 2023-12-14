@@ -7,7 +7,7 @@ export default function DelModal(props) {
     }
     return <dialog id="del-user-modal" open>
         <article>
-            <a href="#close"
+            <a href={props.cancelRedirect}
                 aria-label="Close"
                 className="close"
                 onClick={() => props.handleClose(false)}>
@@ -17,7 +17,7 @@ export default function DelModal(props) {
                 This action cannot be undone.
             </p>
             <footer>
-                <a href="#cancel"
+                <a href={props.cancelRedirect}
                     role="button"
                     className="secondary"
                     onClick={() => props.handleClose(false)}>

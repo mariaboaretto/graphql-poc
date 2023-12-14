@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql, makeReference } from "@apollo/client";
 
 export const GET_USERS = gql`
     query Users {
@@ -46,4 +46,40 @@ query Posts {
     postedOn
     }
     } 
+`
+// Gets specific post
+export const GET_POST = gql`
+    query Post($postId: ID!) {
+    post(id: $postId) {
+        id,
+        title,
+        content,
+        author {
+        id,
+        f_name,
+        l_name
+        },
+        postedOn,
+        comments {
+        commentId
+        }    
+    }
+    }
+`
+
+// Gets all comments of a specific post
+export const GET_COMMENTS_BY_POST = gql`
+    query Post($postId: ID!) {
+    post(id: $postId) {
+        comments {
+        author {
+            id,
+            username
+        },
+        commentId,
+        content,
+        postedOn
+            } 
+        }
+    }
 `

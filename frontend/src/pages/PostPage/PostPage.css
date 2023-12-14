@@ -1,0 +1,32 @@
+#post-container {
+    width: 680px;
+}
+#post-page-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.settings-i {
+    margin: 5px;
+}
+
+#post-content {
+    margin-top: 15px;
+    margin-bottom: 40px;
+    text-align: justify;
+}
+
+#post-image-div {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+#post-author-name {
+    color: black;
+}
+
+#comment-total {
+    text-decoration: none;
+}

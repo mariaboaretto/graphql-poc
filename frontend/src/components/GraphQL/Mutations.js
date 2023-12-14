@@ -19,7 +19,21 @@ export const CREATE_POST_MUTATION = gql`
 
 // Deletes a post from DB
 export const DELETE_POST_MUTATION = gql`
-mutation DeletePost($deletePostId: ID!) {
-    deletePost(id: $deletePostId)
-  }  
+  mutation DeletePost($deletePostId: ID!) {
+      deletePost(id: $deletePostId)
+    }  
+`
+
+// Creates a new comment
+export const ADD_COMMENT_MUTATION = gql`
+  mutation AddComment($comment: CommentInput!) {
+    addComment(comment: $comment)
+  } 
+`
+
+// Deletes a comment
+export const DELETE_COMMENT_MUTATION = gql`
+  mutation DeleteComment($deleteCommentId: ID!) {
+    deleteComment(id: $deleteCommentId)
+  }
 `

@@ -67,6 +67,21 @@ export const GET_POST = gql`
     }
 `
 
+// Gets post details for editing post page (title, author and content only)
+export const GET_POST_FOR_EDITING = gql`
+    query Post($postId: ID!) {
+        post(id: $postId) {
+            id,
+            title,
+            content,
+            author {
+                f_name,
+                l_name
+                }
+            }
+        }
+`
+
 // Gets all comments of a specific post
 export const GET_COMMENTS_BY_POST = gql`
     query Post($postId: ID!) {

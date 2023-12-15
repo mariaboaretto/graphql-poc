@@ -17,6 +17,13 @@ export const CREATE_POST_MUTATION = gql`
   }
 `
 
+// Edits a post
+export const EDIT_POST_MUTATION = gql`
+  mutation EditPost($editPostId: ID!, $edits: EditPostInput!) {
+    editPost(id: $editPostId, edits: $edits)
+  }
+`
+
 // Deletes a post from DB
 export const DELETE_POST_MUTATION = gql`
   mutation DeletePost($deletePostId: ID!) {

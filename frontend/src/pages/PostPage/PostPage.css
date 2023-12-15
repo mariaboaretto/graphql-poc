@@ -1,6 +1,7 @@
 #post-container {
     width: 680px;
 }
+
 #post-page-header {
     display: flex;
     justify-content: space-between;
@@ -15,6 +16,7 @@
     margin-top: 15px;
     margin-bottom: 40px;
     text-align: justify;
+    white-space: pre-line;
 }
 
 #post-image-div {

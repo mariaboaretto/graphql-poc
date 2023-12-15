@@ -4,10 +4,12 @@
     box-shadow: none;
 }
 
-#content {
-    border: 0;
-    font-size: 21px;
+#create-post-content-content {
+    border: none;
     box-shadow: none;
+    overflow: auto;
+    resize: none;
+    white-space: pre-wrap;
 }
 
 #publish-btn {

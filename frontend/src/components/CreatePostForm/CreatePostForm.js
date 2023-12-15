@@ -3,12 +3,15 @@ import { CREATE_POST_MUTATION } from "../GraphQL/Mutations.js"
 import { useMutation, useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { GET_USERNAMES } from "../GraphQL/Queries.js"
+import MsgModal from "../MsgModal/MsgModal.js"
+import TextareaAutosize from 'react-textarea-autosize';
 
 export default function CreatePostForm() {
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
     const [authorID, setAuthorID] = useState()
     const [users, setUsers] = useState()
+    const [showModal, setShowModal] = useState(false)
 
     const [createPost, { error }] = useMutation(CREATE_POST_MUTATION)
     const { err, loading, data } = useQuery(GET_USERNAMES)
@@ -60,11 +63,20 @@ export default function CreatePostForm() {
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)} />
 
-        <textarea
-            id="content"
+        <TextareaAutosize
+            id="create-post-content-content"
             type="text"
             required
-            placeholder="Tell your story..."
-            onChange={(e) => setContent(e.target.value)} />
+            placeholder="Write your post here"
+            onChange={(e) => setContent(e.target.value)}
+        />
+
+        {showModal ?
+            <MsgModal
+                title="Success!"
+                content="Post Created Sucessfully!"
+                redirectLink="/"
+            /> :
+            null}
     </form>
 }

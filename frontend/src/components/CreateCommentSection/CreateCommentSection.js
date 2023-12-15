@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
 import { GET_USERNAMES } from "../GraphQL/Queries"
 import { ADD_COMMENT_MUTATION } from "../GraphQL/Mutations"
-import { Link } from "react-router-dom"
+import TextareaAutosize from 'react-textarea-autosize';
 
 export default function CreateCommentSection(props) {
     const [comment, setComment] = useState()
@@ -49,12 +49,12 @@ export default function CreateCommentSection(props) {
 
     return <div id="create-comment-section">
         <form id="create-comment-form" onSubmit={handleSubmit}>
-            <textarea
+            <TextareaAutosize
                 id="comment-input"
                 placeholder="What are your thoughts?"
                 onChange={(e) => setComment(e.target.value)}
-                required>
-            </textarea>
+                required
+            />
 
             <div id="create-comment-footer">
                 <select id="comment-author" onChange={(e) => setAuthor(e.target.value)} required>

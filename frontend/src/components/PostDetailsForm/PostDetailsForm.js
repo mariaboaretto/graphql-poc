@@ -1,4 +1,4 @@
-import "./CreatePostForm.css"
+import "./PostDetailsForm.css"
 import { CREATE_POST_MUTATION } from "../GraphQL/Mutations.js"
 import { useMutation, useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
@@ -6,7 +6,7 @@ import { GET_USERNAMES } from "../GraphQL/Queries.js"
 import MsgModal from "../MsgModal/MsgModal.js"
 import TextareaAutosize from 'react-textarea-autosize';
 
-export default function CreatePostForm() {
+export default function PostDetailsForm() {
     const [title, setTitle] = useState()
     const [content, setContent] = useState()
     const [authorID, setAuthorID] = useState()
@@ -36,6 +36,8 @@ export default function CreatePostForm() {
                 }
             }
         })
+
+        setShowModal(true)
     }
 
     useEffect(() => {
@@ -49,8 +51,6 @@ export default function CreatePostForm() {
     }
 
     return <form onSubmit={handleSubmit}>
-        <button id="publish-btn" type="submit">Publish</button>
-
         <select id="authors" onChange={(e) => setAuthorID(e.target.value)} required>
             <option value="" disabled selected>Author</option>
             {users.map(renderDropDownOptions)}
@@ -70,6 +70,8 @@ export default function CreatePostForm() {
             placeholder="Write your post here"
             onChange={(e) => setContent(e.target.value)}
         />
+
+        <button id="publish-btn" type="submit">Publish</button>
 
         {showModal ?
             <MsgModal

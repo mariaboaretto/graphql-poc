@@ -1,7 +1,7 @@
-import CreatePostForm from "../../components/CreatePostForm/CreatePostForm";
+import PostDetailsForm from "../../components/PostDetailsForm/PostDetailsForm";
 
 export default function CreatePostPage() {
     return <div className="container">
-        <CreatePostForm />
+        <PostDetailsForm />
     </div>
 }

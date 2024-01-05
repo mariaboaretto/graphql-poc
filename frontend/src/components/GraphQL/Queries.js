@@ -15,6 +15,7 @@ export const GET_USERS = gql`
 export const GET_USER = gql`
     query User($userId: ID!) {
         user(id: $userId) {
+            id,
             f_name,
             l_name,
             username,

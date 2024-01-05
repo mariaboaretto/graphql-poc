@@ -21,7 +21,9 @@ export default function EditPostPage() {
     }, [data])
 
     if (!post) {
-        return <p>Loading...</p>
+        return <div className="container">
+            <article aria-busy="true"></article>
+        </div>
     }
 
     return <div className="container">

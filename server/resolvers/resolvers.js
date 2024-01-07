@@ -99,13 +99,13 @@ export const resolvers = {
 
         // Edit user's info (first and last names)
         async editUserInfo(_, args) {
-            return await userService.editUserInfo(args.id, args.edits.firstName, args.edits.lastName)
+            return await userService.editUserInfo(args.id, args.user.firstName, args.user.lastName)
         },
 
         // Edit user's password
         async editUserPassword(_, args) {
-            return await userService.editPassword(args.id, args.edits.newPwrd,
-                args.edits.newPwrdConfirmation, args.edits.currentPwrd)
+            return await userService.editPassword(args.id, args.user.newPwrd,
+                args.user.newPwrdConfirmation, args.user.currentPwrd)
         },
 
         // Add new comment

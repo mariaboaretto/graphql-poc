@@ -45,8 +45,8 @@ export const typeDefs = `#graphql
         # User Mutations
         deleteUser(id: ID!): String,
         createUser(user: CreateUserInput!): String,
-        editUserInfo(id: ID!, edits: EditUserInfoInput!): String,
-        editUserPassword(id: ID!, edits: EditUserPasswordInput!): String,
+        editUserInfo(id: ID!, user: EditUserInfoInput!): String,
+        editUserPassword(id: ID!, user: EditUserPasswordInput!): String,
         # Comment Mutations
         addComment(comment: CommentInput!): String,
         editComment(id: ID!, edits: EditCommentInput!): String,

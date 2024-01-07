@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react"
-import { useMutation, useQuery } from "@apollo/client"
-import { CREATE_USER_MUTATION } from "../GraphQL/Mutations.js"
+import { useState } from "react"
 import MsgModal from "../MsgModal/MsgModal.js"
+import "./UserDetailsForm.css"
 
 export default function UserDetailsForm(props) {
-    const [firstName, setFirstName] = useState()
-    const [lastName, setLastName] = useState()
+    // Form variables
+    // If there's an user, set their first and last names as default values
+    const [firstName, setFirstName] = useState(props.user ? props.user.f_name : null)
+    const [lastName, setLastName] = useState(props.user ? props.user.l_name : null)
     const [username, setUsername] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const [passwordConfirm, setPasswordConfirm] = useState()
 
+    // Tracks form errors to display appropriate msg to the user
     const [err, setErr] = useState("")
-
-    const [createUser, { createUserErr }] = useMutation(CREATE_USER_MUTATION)
-    const [modalContent, setContent] = useState()
+    const [modalContent, setModalContent] = useState(props.successfulMsg)
     const [showModal, setShowModal] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
 
+        // If passwords don't match, set error message
         if (password != passwordConfirm) {
             setErr("Passwords do not match!")
             return
@@ -28,22 +29,32 @@ export default function UserDetailsForm(props) {
             setErr("")
         }
 
-        createUser({
-            variables: {
-                user: {
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    username: username,
-                    password: password
-                }
+        // Variables to be sent in graphql mutation
+        let vars = {
+            user: {
+                firstName: firstName,
+                lastName: lastName,
             }
-        })
+        }
 
-        if (createUserErr) {
-            setContent(createUserErr)
+        // If there's no user, add email, username and password properties
+        if (!props.user) {
+            vars.user.email = email
+            vars.user.username = username
+            vars.user.password = password
         } else {
-            setContent("User created successfully!")
+            // Otherwise, add ID of user to be edited
+            vars.editUserInfoId = props.user.id
+        }
+
+        // Execute mutation and set modal content if there are any errors
+        try {
+            props.onSubmit({
+                variables: vars
+            })
+        } catch (error) {
+            setModalContent(error)
+
         }
 
         setShowModal(true)
@@ -90,26 +101,27 @@ export default function UserDetailsForm(props) {
             </label>
         </div>
 
-        <div className="grid">
-            <label>Password<span className="required-field">*</span>
-                <input
-                    id="pword"
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    required />
-            </label>
+        {props.user ? <a href="/edit-password" id="edit-pword-link">Edit Password...</a> :
+            <div className="grid">
+                <label>Password<span className="required-field">*</span>
+                    <input
+                        id="pword"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        required />
+                </label>
 
-            <label>Re-enter Password<span className="required-field">*</span>
-                <input id="pword-confirmation"
-                    type="password"
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
-                    required />
-                <small className="error">{err}</small>
-            </label>
-        </div>
+                <label>Re-enter Password<span className="required-field">*</span>
+                    <input id="pword-confirmation"
+                        type="password"
+                        onChange={(e) => setPasswordConfirm(e.target.value)}
+                        required />
+                    <small className="error">{err}</small>
+                </label>
+            </div>}
 
-        <button type="submit">{props.user ? "Update User" : "Create User"}</button>
+        <button id="user-details-submit-btn" type="submit">{props.user ? "Update User" : "Create User"}</button>
 
-        {showModal ? <MsgModal title={createUserErr ? "Error" : "Success"} content={modalContent} redirectLink="/users" /> : null}
+        {showModal ? <MsgModal title={err ? "Error" : "Success"} content={modalContent} redirectLink="/users" /> : null}
     </form>
 }

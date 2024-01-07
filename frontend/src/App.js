@@ -10,6 +10,7 @@ import { onError } from "@apollo/client/link/error"
 import EditUserPage from './pages/EditUserPage/EditUserPage';
 import PostPage from './pages/PostPage/PostPage';
 import EditPostPage from './pages/EditPostPage/EditPostPage';
+import EditPasswordPage from './pages/EditPasswordPage/EditPasswordPage';
 
 const errorLink = onError(({ graphqlError, networkError }) => {
   if (graphqlError)
@@ -39,6 +40,7 @@ function App() {
           <Route path='/edit-user/:id' element={<EditUserPage />} />
           <Route path='/post/:id' element={<PostPage />} />
           <Route path='/edit-post/:id' element={<EditPostPage />} />
+          <Route path='/edit-password' element={<EditPasswordPage />}></Route>
         </Routes>
       </Router>
     </ApolloProvider>

@@ -17,6 +17,13 @@ export const CREATE_POST_MUTATION = gql`
   }
 `
 
+// Edits user info (first and last names)
+export const EDIT_USER_MUTATION = gql`
+  mutation EditUserInfo($editUserInfoId: ID!, $user: EditUserInfoInput!) {
+    editUserInfo(id: $editUserInfoId, user: $user)
+  }
+`
+
 // Edits a post
 export const EDIT_POST_MUTATION = gql`
   mutation EditPost($editPostId: ID!, $edits: EditPostInput!) {

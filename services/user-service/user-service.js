@@ -59,7 +59,7 @@ export default class UserService {
                 return reject("Please insert user's last name")
 
             try {
-                await this.userRepo.editUser(1, f_name, l_name)
+                await this.userRepo.editUser(id, f_name, l_name)
                 resolve("User updated successfully.")
             } catch (error) {
                 reject(error)

@@ -1,27 +1,32 @@
 import { useParams } from "react-router-dom";
 import UserDetailsForm from "../../components/UserDetailsForm/UserDetailsForm";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_USER } from "../../components/GraphQL/Queries";
 import { useEffect, useState } from "react";
+import { EDIT_USER_MUTATION } from "../../components/GraphQL/Mutations";
 
 export default function EditUserPage() {
     const id = useParams().id
     const [user, setUser] = useState()
 
-    const { error, loading, data } = useQuery(GET_USER, {
+    // GraphQLedit user mutation
+    const [editUser, {}] = useMutation(EDIT_USER_MUTATION)
+
+    // Fetching user to be edited
+    const { getErr, getLoading, data: getData } = useQuery(GET_USER, {
         variables: {
             userId: id
         }
     })
 
     useEffect(() => {
-        if (data) {
-            setUser(data.user)
+        if (getData) {
+            setUser(getData.user)
         }
-    }, [data])
+    }, [getData])
 
     return <div className="container">
         <h3>Edit User</h3>
-        {user ? <UserDetailsForm user={user} /> : null}
+        {user ? <UserDetailsForm user={user} onSubmit={editUser} successfulMsg="User Updated Successfully!" /> : null}
     </div>
 }

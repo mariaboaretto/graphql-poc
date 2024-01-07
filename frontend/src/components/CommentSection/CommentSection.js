@@ -30,6 +30,6 @@ export default function CommentSection(props) {
         <p id="total-comments">Comments ({comments.length})</p>
         <CreateCommentSection postId={props.postId} />
 
-        <CommentList comments={comments}/>
+        <CommentList comments={comments} postId={props.postId}/>
     </div>
 }

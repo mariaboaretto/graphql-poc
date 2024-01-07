@@ -16,77 +16,136 @@ export const resolvers = {
     Query: {
         // Get all users
         async users() {
-            return await userService.getUsers()
+            try {
+                let res = await userService.getUsers()
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get all posts
         async posts() {
-            return await postService.getPosts()
+            try {
+                let res = await postService.getPosts()
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get all comments
         async comments() {
-            return await commentService.getComments()
+            try {
+                let res = await commentService.getComments()
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get user by id
         async user(_, args) {
-            return await userService.getUserById(args.id)
+            try {
+                let res = await userService.getUserById(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get post by id
         async post(_, args) {
-            return await postService.getPostById(args.id)
+            try {
+                let res = await postService.getPostById(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get comment by id
         async comment(_, args) {
-            return await commentService.getCommentById(args.id)
+            try {
+                let res = await commentService.getCommentById(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         }
     },
     Comment: {
         // Get post associated with comment
         async post(parent) {
-            let posts = await postService.getPosts()
+            try {
+                let posts = await postService.getPosts()
 
-            return posts.find((post) => post.id == parent.postId)
+                return posts.find((post) => post.id == parent.postId)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get comment's author
         async author(parent) {
-            let users = await userService.getUsers()
+            try {
+                let users = await userService.getUsers()
 
-            return users.find((user) => user.id == parent.authorId)
+                return users.find((user) => user.id == parent.authorId)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         }
     },
     Post: {
         // Get post's author
         async author(parent) {
-            let users = await userService.getUsers()
+            try {
+                let users = await userService.getUsers()
 
-            return users.find((user) => user.id == parent.authorId)
+                return users.find((user) => user.id == parent.authorId)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get post's comments
         async comments(parent) {
-            let comments = await commentService.getComments()
+            try {
+                let comments = await commentService.getComments()
 
-            return comments.filter((comment) => comment.postId == parent.id)
+                return comments.filter((comment) => comment.postId == parent.id)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
 
         }
     },
     User: {
         // Get posts made by user
         async posts(parent) {
-            let posts = await postService.getPosts()
+            try {
+                let posts = await postService.getPosts()
 
-            return posts.filter((post) => post.authorId == parent.id)
+                return posts.filter((post) => post.authorId == parent.id)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
         // Get comments made by user
         async comments(parent) {
-            let comments = await commentService.getComments()
+            try {
+                let comments = await commentService.getComments()
 
-            return comments.filter((comment) => comment.authorId == parent.id)
+                return comments.filter((comment) => comment.authorId == parent.id)
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         }
     },
     // Mutations
     Mutation: {
         // Delete user by id
         async deleteUser(_, args) {
-            return await userService.removeUser(args.id)
+            try {
+                let res = await userService.removeUser(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Create user
@@ -95,12 +154,22 @@ export const resolvers = {
                 ...args.user
             }
 
-            return await userService.createUser(user.firstName, user.lastName, user.email, user.username, user.password)
+            try {
+                let res = await userService.createUser(user.firstName, user.lastName, user.email, user.username, user.password)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Edit user's info (first and last names)
         async editUserInfo(_, args) {
-            return await userService.editUserInfo(args.id, args.user.firstName, args.user.lastName)
+            try {
+                let res = await userService.editUserInfo(args.id, args.user.firstName, args.user.lastName)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Edit user's password
@@ -110,41 +179,71 @@ export const resolvers = {
                     args.user.newPwrdConfirmation, args.user.currentPwrd)
                 return res
             } catch (error) {
-                throw new ApolloError(error, 'BAD_USER_INPUT', { statusCode: 400 })
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
             }
         },
 
         // Add new comment
         async addComment(_, args) {
-            return await commentService.addComment(args.comment.content,
-                args.comment.authorId, args.comment.postId)
+            try {
+                let res = await commentService.addComment(args.comment.content,
+                    args.comment.authorId, args.comment.postId)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Edit comment
         async editComment(_, args) {
-            return await commentService.editComment(args.id, args.edits.content)
+            try {
+                let res = await commentService.editComment(args.id, args.edits.content)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Remove comment
 
         async deleteComment(_, args) {
-            return await commentService.removeComment(args.id)
+            try {
+                let res = await commentService.removeComment(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Create new Post
         async createPost(_, args) {
-            return await postService.createPost(args.post.title,
-                args.post.content, args.post.authorID)
+            try {
+                let res = await postService.createPost(args.post.title,
+                    args.post.content, args.post.authorID)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Edit a Post
         async editPost(_, args) {
-            return await postService.editPost(args.id, args.edits.title, args.edits.content)
+            try {
+                let res = await postService.editPost(args.id, args.edits.title, args.edits.content)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         },
 
         // Delete a post
         async deletePost(_, args) {
-            return await postService.removePost(args.id)
+            try {
+                let res = await postService.removePost(args.id)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+            }
         }
     }
 }

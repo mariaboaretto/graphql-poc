@@ -10,7 +10,11 @@ export default function EditUserPage() {
     const [user, setUser] = useState()
 
     // GraphQLedit user mutation
-    const [editUser, {}] = useMutation(EDIT_USER_MUTATION)
+    const [editUser, { }] = useMutation(EDIT_USER_MUTATION, {
+        onError: (err) => {
+            console.log("Mutation err: ", err)
+        }
+    })
 
     // Fetching user to be edited
     const { getErr, getLoading, data: getData } = useQuery(GET_USER, {

@@ -24,6 +24,13 @@ export const EDIT_USER_MUTATION = gql`
   }
 `
 
+// Edits user password
+export const EDIT_USER_PASSWORD_MUTATION = gql`
+  mutation Mutation($editUserPasswordId: ID!, $user: EditUserPasswordInput!) {
+    editUserPassword(id: $editUserPasswordId, user: $user)
+  }  
+`
+
 // Edits a post
 export const EDIT_POST_MUTATION = gql`
   mutation EditPost($editPostId: ID!, $edits: EditPostInput!) {

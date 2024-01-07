@@ -40,7 +40,7 @@ function App() {
           <Route path='/edit-user/:id' element={<EditUserPage />} />
           <Route path='/post/:id' element={<PostPage />} />
           <Route path='/edit-post/:id' element={<EditPostPage />} />
-          <Route path='/edit-password' element={<EditPasswordPage />}></Route>
+          <Route path='/edit-password/:id' element={<EditPasswordPage />}></Route>
         </Routes>
       </Router>
     </ApolloProvider>

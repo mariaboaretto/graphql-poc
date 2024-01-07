@@ -21,7 +21,7 @@ export default function UserDetailsForm(props) {
         e.preventDefault()
 
         // If passwords don't match, set error message
-        if (password != passwordConfirm) {
+        if (password !== passwordConfirm) {
             setErr("Passwords do not match!")
             return
         }
@@ -101,7 +101,7 @@ export default function UserDetailsForm(props) {
             </label>
         </div>
 
-        {props.user ? <a href="/edit-password" id="edit-pword-link">Edit Password...</a> :
+        {props.user ? <a href={`/edit-password/${props.user.id}`} id="edit-pword-link">Edit Password...</a> :
             <div className="grid">
                 <label>Password<span className="required-field">*</span>
                     <input
@@ -115,7 +115,8 @@ export default function UserDetailsForm(props) {
                     <input id="pword-confirmation"
                         type="password"
                         onChange={(e) => setPasswordConfirm(e.target.value)}
-                        required />
+                        required
+                        aria-invalid={err ? true : null} />
                     <small className="error">{err}</small>
                 </label>
             </div>}

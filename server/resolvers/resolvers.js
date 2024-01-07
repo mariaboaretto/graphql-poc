@@ -2,6 +2,7 @@
 import UserService from "../../services/user-service/user-service.js"
 import PostService from "../../services/post-service/post-service.js"
 import CommentService from "../../services/comment-service/comment-service.js"
+import { ApolloError } from "apollo-server"
 
 const userService = new UserService()
 const postService = new PostService()
@@ -104,8 +105,13 @@ export const resolvers = {
 
         // Edit user's password
         async editUserPassword(_, args) {
-            return await userService.editPassword(args.id, args.user.newPwrd,
-                args.user.newPwrdConfirmation, args.user.currentPwrd)
+            try {
+                let res = await userService.editPassword(args.id, args.user.newPwrd,
+                    args.user.newPwrdConfirmation, args.user.currentPwrd)
+                return res
+            } catch (error) {
+                throw new ApolloError(error, 'BAD_USER_INPUT', { statusCode: 400 })
+            }
         },
 
         // Add new comment

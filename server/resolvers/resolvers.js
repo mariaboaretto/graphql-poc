@@ -3,6 +3,7 @@ import UserService from "../../services/user-service/user-service.js"
 import PostService from "../../services/post-service/post-service.js"
 import CommentService from "../../services/comment-service/comment-service.js"
 import { ApolloError } from "apollo-server"
+import { GraphQLError } from "graphql"
 
 const userService = new UserService()
 const postService = new PostService()
@@ -158,7 +159,7 @@ export const resolvers = {
                 let res = await userService.createUser(user.firstName, user.lastName, user.email, user.username, user.password)
                 return res
             } catch (error) {
-                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+                throw new ApolloError(error.message, error.code, { statusCode: 400 })
             }
         },
 
@@ -179,7 +180,7 @@ export const resolvers = {
                     args.user.newPwrdConfirmation, args.user.currentPwrd)
                 return res
             } catch (error) {
-                throw new ApolloError(error, 'BAD_REQUEST', { statusCode: 400 })
+                throw new ApolloError(error.message, error.code, { statusCode: 400 })
             }
         },
 

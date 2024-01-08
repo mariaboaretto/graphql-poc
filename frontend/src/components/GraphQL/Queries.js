@@ -45,7 +45,7 @@ query Posts {
         l_name
         },
     postedOn
-    }
+        }
     } 
 `
 // Gets specific post

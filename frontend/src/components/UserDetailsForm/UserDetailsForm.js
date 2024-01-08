@@ -1,6 +1,8 @@
 import { useState } from "react"
 import MsgModal from "../MsgModal/MsgModal.js"
 import "./UserDetailsForm.css"
+import { useMutation } from "@apollo/client"
+import { CREATE_USER_MUTATION, EDIT_USER_MUTATION } from "../GraphQL/Mutations.js"
 
 export default function UserDetailsForm(props) {
     // Form variables
@@ -12,9 +14,19 @@ export default function UserDetailsForm(props) {
     const [password, setPassword] = useState()
     const [passwordConfirm, setPasswordConfirm] = useState()
 
+    // GraphQL Mutation
+    const [mutation] = useMutation(props.user ? EDIT_USER_MUTATION : CREATE_USER_MUTATION, {
+        onError: (error) => {
+            setErr({ message: error.graphQLErrors[0].message, code: error.graphQLErrors[0].extensions.code })
+        },
+        onCompleted: () => {
+            setErr(null)
+            setShowModal(true)
+        }
+    })
+
     // Tracks form errors to display appropriate msg to the user
-    const [err, setErr] = useState("")
-    const [modalContent, setModalContent] = useState(props.successfulMsg)
+    const [err, setErr] = useState()
     const [showModal, setShowModal] = useState(false)
 
     function handleSubmit(e) {
@@ -22,11 +34,11 @@ export default function UserDetailsForm(props) {
 
         // If passwords don't match, set error message
         if (password !== passwordConfirm) {
-            setErr("Passwords do not match!")
+            setErr({ code: "PASSWORDS_CONFLICT", message: "Passwords do not match!" })
             return
         }
         else {
-            setErr("")
+            setErr(null)
         }
 
         // Variables to be sent in graphql mutation
@@ -48,16 +60,9 @@ export default function UserDetailsForm(props) {
         }
 
         // Execute mutation and set modal content if there are any errors
-        try {
-            props.onSubmit({
-                variables: vars
-            })
-        } catch (error) {
-            setModalContent(error)
-
-        }
-
-        setShowModal(true)
+        mutation({
+            variables: vars
+        })
     }
 
     return <form onSubmit={handleSubmit}>
@@ -88,7 +93,9 @@ export default function UserDetailsForm(props) {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     disabled={props.user ? true : false}
+                    aria-invalid={err?.code == "EMAIL_CONFLICT" ? true : null}
                     defaultValue={props.user ? props.user.email : ""} />
+                {err?.code == "EMAIL_CONFLICT" ? <small className="error">{err.message}</small> : null}
             </label>
 
             <label>Username<span className="required-field">*</span>
@@ -97,7 +104,9 @@ export default function UserDetailsForm(props) {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     disabled={props.user ? true : false}
+                    aria-invalid={err?.code == "USERNAME_CONFLICT" ? true : null}
                     defaultValue={props.user ? props.user.username : ""} />
+                {err?.code == "USERNAME_CONFLICT" ? <small className="error">{err.message}</small> : null}
             </label>
         </div>
 
@@ -116,13 +125,13 @@ export default function UserDetailsForm(props) {
                         type="password"
                         onChange={(e) => setPasswordConfirm(e.target.value)}
                         required
-                        aria-invalid={err ? true : null} />
-                    <small className="error">{err}</small>
+                        aria-invalid={err?.code == "PASSWORDS_CONFLICT" ? true : null} />
+                    {err?.code == "PASSWORDS_CONFLICT" ? <small className="error">{err.message}</small> : null}
                 </label>
             </div>}
 
         <button id="user-details-submit-btn" type="submit">{props.user ? "Update User" : "Create User"}</button>
 
-        {showModal ? <MsgModal title={err ? "Error" : "Success"} content={modalContent} redirectLink="/users" /> : null}
+        {showModal && !err ? <MsgModal title="Success!" content={props.successfulMsg} redirectLink="/users" /> : null}
     </form>
 }

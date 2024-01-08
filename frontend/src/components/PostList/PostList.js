@@ -25,12 +25,13 @@ export default function PostList() {
 
     useEffect(() => {
         if (data) {
+            console.log(data)
             setPosts(data.posts)
         }
     }, [data])
 
     if (!posts) {
-        return <article aria-busy="true"></article>
+        return <p>No data to display...</p>
     }
 
     return <div id="post-list">

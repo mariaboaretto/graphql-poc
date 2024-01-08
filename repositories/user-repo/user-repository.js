@@ -37,11 +37,11 @@ export default class UserRepository {
             try {
                 // Checking if a user with this username already exists in db
                 if (await this._usernameExists(username))
-                    return reject("Username already exists.")
+                    return reject({ message: "Username already exists.", code: "USERNAME_CONFLICT" })
 
                 // Check if email already exists in db
                 if (await this._emailExists(email))
-                    return reject("Email already exists.")
+                    return reject({ message: "Email already exists.", code: "EMAIL_CONFLICT" })
 
                 this.db.run(`INSERT INTO users(f_name, l_name, email, username, password) VALUES (?,?,?,?,?)`,
                     [f_name, l_name, email, username, pwrd])

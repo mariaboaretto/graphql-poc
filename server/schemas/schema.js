@@ -17,7 +17,7 @@ export const typeDefs = `#graphql
         id: ID!,
         title: String!,
         content: String!,
-        author: User!,
+        author: User,
         postedOn: String!,
         comments: [Comment!]
     }
@@ -26,7 +26,7 @@ export const typeDefs = `#graphql
         commentId: ID!,
         content: String!,
         post: Post!,
-        author: User!,
+        author: User,
         postedOn: String!
     }
 

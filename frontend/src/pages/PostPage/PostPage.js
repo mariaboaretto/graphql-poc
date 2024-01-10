@@ -40,7 +40,7 @@ export default function PostPage(props) {
 
         <div id="post-page-header">
             <div id="post-information">
-                <span id="post-author-name">{post.author.f_name + " " + post.author.l_name}</span>
+                <span id="post-author-name">{post.author ? post.author.f_name + " " + post.author.l_name : "[deleted user]"}</span>
                 <span id="post-publish-date">&nbsp;&#183;&nbsp;{date}&nbsp;&#183;&nbsp;</span>
                 <a id="comment-total" href="#comment-section">
                     <i className="fa-regular fa-comment"></i>

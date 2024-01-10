@@ -12,3 +12,6 @@
 # Test files
 /repositories/testdb.js
 /services/service-test.js
+
+# Env files
+/frontend/.env

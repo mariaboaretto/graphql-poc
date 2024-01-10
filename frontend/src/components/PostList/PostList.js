@@ -6,7 +6,11 @@ import "./PostList.css"
 
 export default function PostList() {
     const [posts, setPosts] = useState()
-    const { postsError, _, data } = useQuery(GET_POSTS)
+    const { postsError, _, data } = useQuery(GET_POSTS, {
+        onError: (error) => {
+            console.log(error.graphQLErrors[0])
+        }
+    })
 
     // Renders a post card with post details
     function renderPosts(post) {
@@ -25,7 +29,6 @@ export default function PostList() {
 
     useEffect(() => {
         if (data) {
-            console.log(data)
             setPosts(data.posts)
         }
     }, [data])

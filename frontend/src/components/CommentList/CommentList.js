@@ -12,7 +12,7 @@ export default function CommentList(props) {
         return <CommentCard
             key={comment.commentId}
             commentId={comment.commentId}
-            authorName={comment.author.username}
+            authorName={comment.author ? comment.author.username : "[deleted user]"}
             content={comment.content}
             publishDate={publishDate}
             postId={props.postId}

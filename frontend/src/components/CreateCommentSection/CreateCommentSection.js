@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
-import { GET_USERNAMES } from "../GraphQL/Queries"
+import { GET_COMMENTS_BY_POST, GET_USERNAMES } from "../GraphQL/Queries"
 import { ADD_COMMENT_MUTATION } from "../GraphQL/Mutations"
 import TextareaAutosize from 'react-textarea-autosize';
 import { Link } from "react-router-dom";
@@ -12,7 +12,9 @@ export default function CreateCommentSection(props) {
 
     // GraphQL queries and mutations
     const { userErr, _, data } = useQuery(GET_USERNAMES)
-    const [addComment, { addCommentError }] = useMutation(ADD_COMMENT_MUTATION)
+    const [addComment, { addCommentError }] = useMutation(ADD_COMMENT_MUTATION, {
+        refetchQueries: [GET_COMMENTS_BY_POST, "GetComments"]
+    })
 
     // Renders available users as dropdown menu options
     function renderDropDownOptions(user) {

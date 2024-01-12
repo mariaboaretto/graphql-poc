@@ -2,9 +2,13 @@ import { useMutation } from "@apollo/client"
 import { DELETE_COMMENT_MUTATION } from "../GraphQL/Mutations"
 import { useState } from "react"
 import DelModal from "../DelModal/DelModal"
+import { GET_COMMENTS_BY_POST } from "../GraphQL/Queries"
 
 export default function DeleteCommentBtn(props) {
-    const [deleteComment, { delCommentErr }] = useMutation(DELETE_COMMENT_MUTATION)
+    const [deleteComment, { delCommentErr }] = useMutation(DELETE_COMMENT_MUTATION, {
+        refetchQueries: [GET_COMMENTS_BY_POST, "GetComments"]
+    })
+    
     const [showModal, setShowModal] = useState(false)
 
     function handleClick() {

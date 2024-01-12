@@ -2,7 +2,7 @@ import "./PostDetailsForm.css"
 import { CREATE_POST_MUTATION, EDIT_POST_MUTATION } from "../GraphQL/Mutations.js"
 import { useMutation, useQuery } from "@apollo/client"
 import { useEffect, useState } from "react"
-import { GET_USERNAMES } from "../GraphQL/Queries.js"
+import { GET_POSTS, GET_USERNAMES } from "../GraphQL/Queries.js"
 import MsgModal from "../MsgModal/MsgModal.js"
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -17,7 +17,8 @@ export default function PostDetailsForm(props) {
     const [submitMutation, { }] = useMutation(props.post ? EDIT_POST_MUTATION : CREATE_POST_MUTATION, {
         onCompleted: () => {
             setShowModal(true)
-        }
+        },
+        refetchQueries: [GET_POSTS, "GetPosts"]
     })
 
     const { err, loading, data } = useQuery(GET_USERNAMES)

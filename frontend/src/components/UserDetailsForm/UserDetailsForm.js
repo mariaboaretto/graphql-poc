@@ -3,6 +3,7 @@ import MsgModal from "../MsgModal/MsgModal.js"
 import "./UserDetailsForm.css"
 import { useMutation } from "@apollo/client"
 import { CREATE_USER_MUTATION, EDIT_USER_MUTATION } from "../GraphQL/Mutations.js"
+import { Link } from "react-router-dom"
 
 export default function UserDetailsForm(props) {
     // Form variables
@@ -110,7 +111,7 @@ export default function UserDetailsForm(props) {
             </label>
         </div>
 
-        {props.user ? <a href={`/edit-password/${props.user.id}`} id="edit-pword-link">Edit Password...</a> :
+        {props.user ? <Link to={`/edit-password/${props.user.id}`} id="edit-pword-link">Edit Password...</Link> :
             <div className="grid">
                 <label>Password<span className="required-field">*</span>
                     <input

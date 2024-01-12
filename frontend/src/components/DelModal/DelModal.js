@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 export default function DelModal(props) {
     function handleClick() {
@@ -7,27 +8,27 @@ export default function DelModal(props) {
     }
     return <dialog id="del-user-modal" open>
         <article>
-            <a href={props.cancelRedirect}
+            <Link to={props.cancelRedirect}
                 aria-label="Close"
                 className="close"
                 onClick={() => props.handleClose(false)}>
-            </a>
+            </Link>
             <h3>{props.title}</h3>
             <p>
                 This action cannot be undone.
             </p>
             <footer>
-                <a href={props.cancelRedirect}
+                <Link to={props.cancelRedirect}
                     role="button"
                     className="secondary"
                     onClick={() => props.handleClose(false)}>
                     Cancel
-                </a>
-                <a href={props.redirectLink}
+                </Link>
+                <Link to={props.redirectLink}
                     role="button"
                     onClick={handleClick}>
                     Confirm
-                </a>
+                </Link>
             </footer>
         </article>
     </dialog>

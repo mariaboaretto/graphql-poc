@@ -13,8 +13,13 @@ export default function PostDetailsForm(props) {
     const [users, setUsers] = useState()
     const [showModal, setShowModal] = useState(false)
 
-    const [createPost, { error }] = useMutation(CREATE_POST_MUTATION)
-    const [editPost, { editErr }] = useMutation(EDIT_POST_MUTATION)
+
+    const [submitMutation, { }] = useMutation(props.post ? EDIT_POST_MUTATION : CREATE_POST_MUTATION, {
+        onCompleted: () => {
+            setShowModal(true)
+        }
+    })
+
     const { err, loading, data } = useQuery(GET_USERNAMES)
 
     function renderDropDownOptions(user) {
@@ -27,30 +32,23 @@ export default function PostDetailsForm(props) {
 
     function handleSubmit(e) {
         e.preventDefault()
+        let variables = {}
 
         if (props.post) {
-            editPost({
-                variables: {
-                    editPostId: props.post.id,
-                    edits: {
-                        title: title,
-                        content: content
-                    }
-                }
-            })
+            variables.edits = {}
+            variables.editPostId = props.post.id
+            variables.edits.title = title
+            variables.edits.content = content
         } else {
-            createPost({
-                variables: {
-                    post: {
-                        title: title,
-                        content: content,
-                        authorID: authorID
-                    }
-                }
-            })
+            variables.post = {}
+            variables.post.title = title
+            variables.post.content = content
+            variables.post.authorID = authorID
         }
 
-        setShowModal(true)
+        submitMutation({
+            variables: variables
+        })
     }
 
     useEffect(() => {

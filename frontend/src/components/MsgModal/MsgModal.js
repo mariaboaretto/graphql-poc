@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function MsgModal(props) {
     return <dialog open>
         <article>
@@ -6,7 +8,7 @@ export default function MsgModal(props) {
                 {props.content}
             </p>
             <footer>
-                <a href={props.redirectLink} role="button" className="secondary">Close</a>
+                <Link to={props.redirectLink} role="button" className="secondary">Close</Link>
             </footer>
         </article>
     </dialog>

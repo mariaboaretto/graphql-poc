@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { GET_USERNAMES } from "../GraphQL/Queries"
 import { ADD_COMMENT_MUTATION } from "../GraphQL/Mutations"
 import TextareaAutosize from 'react-textarea-autosize';
+import { Link } from "react-router-dom";
 
 export default function CreateCommentSection(props) {
     const [comment, setComment] = useState()
@@ -23,7 +24,7 @@ export default function CreateCommentSection(props) {
     }
 
     // Handles form submission
-    function handleSubmit(e) {
+    function handleSubmit() {
         addComment({
             variables: {
                 comment: {
@@ -48,7 +49,7 @@ export default function CreateCommentSection(props) {
     }
 
     return <div id="create-comment-section">
-        <form id="create-comment-form" onSubmit={handleSubmit}>
+        <form id="create-comment-form">
             <TextareaAutosize
                 id="comment-input"
                 placeholder="What are your thoughts?"
@@ -62,9 +63,14 @@ export default function CreateCommentSection(props) {
                     {users.map(renderDropDownOptions)}
                 </select>
 
-                <button id="add-comment-btn" type="submit" className="contrast">
+                <Link
+                    to={`/post/${props.postId}`}
+                    id="add-comment-btn" type="submit"
+                    role="button" className="contrast"
+                    onClick={handleSubmit}
+                >
                     Post
-                </button>
+                </Link>
             </div>
         </form>
     </div>

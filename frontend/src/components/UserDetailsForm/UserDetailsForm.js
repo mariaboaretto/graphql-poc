@@ -3,6 +3,7 @@ import MsgModal from "../MsgModal/MsgModal.js"
 import "./UserDetailsForm.css"
 import { useMutation } from "@apollo/client"
 import { CREATE_USER_MUTATION, EDIT_USER_MUTATION } from "../GraphQL/Mutations.js"
+import { GET_USERS } from "../GraphQL/Queries.js"
 import { Link } from "react-router-dom"
 
 export default function UserDetailsForm(props) {
@@ -23,7 +24,8 @@ export default function UserDetailsForm(props) {
         onCompleted: () => {
             setErr(null)
             setShowModal(true)
-        }
+        },
+        refetchQueries: [GET_USERS, "GetUsers"]
     })
 
     // Tracks form errors to display appropriate msg to the user

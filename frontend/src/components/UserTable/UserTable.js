@@ -7,7 +7,9 @@ import { DELETE_USER_MUTATION } from "../GraphQL/Mutations.js"
 
 export default function UserTable() {
     const { error, _, data } = useQuery(GET_USERS)
-    const [deleteUser, { err }] = useMutation(DELETE_USER_MUTATION)
+    const [deleteUser, { err }] = useMutation(DELETE_USER_MUTATION, {
+        refetchQueries: [GET_USERS, "GetUsers"]
+    })
     const [users, setUsers] = useState([])
 
     function delUser(userId) {

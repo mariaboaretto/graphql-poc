@@ -6,7 +6,7 @@ This is a Proof of Concept (POC) for a web application built using GraphQL. The 
 
 ## Features
 
-- Article creation: Post new articles with title, content, and tags.
+- Article creation: Post new articles with title and content.
 - Commenting system: Engage with articles by commenting on them.
 - GraphQL API: Utilize the power of GraphQL with Apollo Server.
 - Client-side rendering: Implement a responsive user interface with Apollo Client.
@@ -91,6 +91,6 @@ $ npm start
 
 ## Technologies Used
 - **GraphQL with Apollo Server:** Efficiently query and manipulate data on the server.
-- **Apollo Client:** Client-side rendering for a responsive user interface.
-- **SQLite:** Lightweight relational database for storing articles and comments.
+- **Apollo Client:** Client-side rendering for the user interface.
+- **SQLite:** Lightweight relational database for storing users, articles, and comments.
 - **Docker and docker-compose:** Containerization and orchestration for seamless deployment.
